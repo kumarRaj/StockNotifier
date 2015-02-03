@@ -1,5 +1,8 @@
 package rajkum.tw.com.stocknotifier;
 
+import android.content.ContentValues;
+import android.database.sqlite.SQLiteDatabase;
+
 /**
  * Created by rajkum on 2/2/15.
  * This class is for

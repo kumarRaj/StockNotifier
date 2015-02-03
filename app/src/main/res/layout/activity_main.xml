@@ -67,9 +67,10 @@
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="Upper Limit"
         android:id="@+id/text_Upper"
-        android:layout_centerVertical="true"
+        android:layout_below="@+id/text_Date"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="37dp" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -81,4 +82,96 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_marginTop="21dp" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="number"
+        android:ems="10"
+        android:id="@+id/editText_stockId"
+        android:layout_alignTop="@+id/stockId"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:width="150dp" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="number|numberDecimal"
+        android:ems="10"
+        android:id="@+id/editText_price"
+        android:layout_alignTop="@+id/price"
+        android:layout_alignLeft="@+id/editText_stockId"
+        android:layout_alignStart="@+id/editText_stockId"
+        android:width="150dp" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="number"
+        android:ems="10"
+        android:id="@+id/editText_quantity"
+        android:layout_alignTop="@+id/quantity"
+        android:layout_alignLeft="@+id/editText_price"
+        android:layout_alignStart="@+id/editText_price"
+        android:width="150dp" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="number|numberDecimal"
+        android:ems="10"
+        android:id="@+id/editText_upperLimit"
+        android:layout_alignTop="@+id/text_Upper"
+        android:width="150dp"
+        android:layout_alignLeft="@+id/editText_quantity"
+        android:layout_alignStart="@+id/editText_quantity" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="number|numberDecimal"
+        android:ems="10"
+        android:id="@+id/editText_lowerLimit"
+        android:layout_alignTop="@+id/text_lower"
+        android:layout_alignLeft="@+id/editText_upperLimit"
+        android:layout_alignStart="@+id/editText_upperLimit"
+        android:width="150dp" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="textCapCharacters"
+        android:ems="10"
+        android:id="@+id/editText_stockName"
+        android:layout_alignTop="@+id/stockName"
+        android:layout_alignLeft="@+id/editText_stockId"
+        android:layout_alignStart="@+id/editText_stockId"
+        android:width="150dp"
+        android:nestedScrollingEnabled="true" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Add to My Stocks"
+        android:id="@+id/save"
+        android:onClick="addToStock"
+        android:nestedScrollingEnabled="false"
+        android:layout_below="@+id/editText_lowerLimit"
+        android:layout_toRightOf="@+id/text_Upper"
+        android:layout_toEndOf="@+id/text_Upper" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="number"
+        android:ems="10"
+        android:id="@+id/editText_date"
+        android:width="150dp"
+        android:layout_alignTop="@+id/text_Date"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:focusable="false"
+        android:focusableInTouchMode="false" />
+
 </RelativeLayout>
