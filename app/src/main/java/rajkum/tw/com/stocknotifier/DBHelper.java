@@ -21,14 +21,15 @@ public class DBHelper extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         db.execSQL(StockInfo.createTable());
-        db.execSQL(Transaction.createTable());
+        db.execSQL(StockTransaction.createTable());
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         db.execSQL(StockInfo.dropTable());
-        db.execSQL(Transaction.dropTable());
+        db.execSQL(StockTransaction.dropTable());
 
         onCreate(db);
+
     }
 }

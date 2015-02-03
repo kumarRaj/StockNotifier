@@ -22,6 +22,25 @@ public class MainActivity extends ActionBarActivity {
         return true;
     }
 
+    public void addToStock(View view){
+        DBHelper dbHelper = new DBHelper(this);
+
+        addStockInfo(dbHelper);
+        addStockTransaction(dbHelper);
+    }
+
+    private void addStockTransaction(DBHelper dbHelper) {
+        int stockId = Integer.parseInt(((EditText) findViewById(R.id.editText_stockId)).getText().toString());
+//        findViewById(R.id.editText_date)
+
+    }
+
+    private void addStockInfo(DBHelper dbHelper) {
+        String stockName = ((EditText)findViewById(R.id.editText_stockName)).getText().toString();
+        int stockId = Integer.parseInt(((EditText) findViewById(R.id.editText_stockId)).getText().toString());
+        new StockInfo(stockId,stockName).insert(dbHelper);
+    }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle action bar item clicks here. The action bar will
