@@ -1,16 +1,15 @@
 package rajkum.tw.com.stocknotifier;
 
-import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
-import android.support.v4.app.FragmentManager;
-import android.view.View;
 import android.widget.DatePicker;
 import android.widget.EditText;
 
+import java.util.Date;
 import java.util.Calendar;
+import java.util.GregorianCalendar;
 
 /**
  * Created by rajkum on 2/3/15.
@@ -23,12 +22,19 @@ public class DatePickerFragment extends DialogFragment implements DatePickerDial
 //
 //    }
     private EditText date;
+    private long timeInMillis;
 
     @Override
     public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-        String selectedDate = year + "/" + monthOfYear + "/" + dayOfMonth;
+        String selectedDate = dayOfMonth + "/" + monthOfYear + "/" + year;
         this.date.setText(selectedDate);
+        Date coolDate = new GregorianCalendar(year, monthOfYear, dayOfMonth).getTime();
+        timeInMillis = coolDate.getTime();
 //        view.init(year,monthOfYear,dayOfMonth,null);
+    }
+
+    public long getTimeInMillis() {
+        return timeInMillis;
     }
 
     @Override

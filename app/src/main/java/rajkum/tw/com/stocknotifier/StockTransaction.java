@@ -3,6 +3,7 @@ package rajkum.tw.com.stocknotifier;
 import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.util.Log;
 
 import java.util.Date;
 
@@ -37,11 +38,10 @@ public class StockTransaction {
         SQLiteDatabase db = dbHelper.getReadableDatabase();
         String selectQuery = "select last_insert_rowid() from StockTransaction";
         Cursor cursor = db.rawQuery(selectQuery, null);
-        return cursor.getCount();
+        return cursor.getInt(0);
     }
 
-    public StockTransaction(int tId, int stockId, Date purchaseDate, float price, int quantity, float upperThreshold, float lowerThreshold, boolean status, TransactionType type) {
-        this.tId = tId;
+    public StockTransaction(int stockId, Date purchaseDate, float price, int quantity, float upperThreshold, float lowerThreshold, boolean status, TransactionType type) {
         this.stockId = stockId;
         this.purchaseDate = purchaseDate;
         this.price = price;
@@ -54,7 +54,6 @@ public class StockTransaction {
 
     public void insert(DBHelper dbHelper){
         ContentValues values = new ContentValues();
-        values.put("tId",tId);
         values.put("stockId",stockId);
         values.put("purchaseDate",purchaseDate.getTime());
         values.put("price",price);
@@ -65,7 +64,7 @@ public class StockTransaction {
         values.put("type",type.ordinal());
 
         SQLiteDatabase db = dbHelper.getReadableDatabase();
-        db.insert("Transaction",null,values);
-//        db.insert("insert into Transaction (tId, stockId, purchaseDate, price, quantity, upperThreshold, lowerThreshold, status, type) values (" + tId + "" +")"
+        long status = db.insert("StockTransaction",null,values);
+        Log.v("DEBUG", "db.insert returned:" + String.valueOf(status));
     }
 }

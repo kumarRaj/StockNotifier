@@ -1,17 +1,19 @@
 package rajkum.tw.com.stocknotifier;
 
-import android.support.v4.app.DialogFragment;
-import android.support.v4.app.FragmentActivity;
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.support.v4.app.FragmentActivity;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.DatePicker;
+import android.widget.CheckBox;
 import android.widget.EditText;
-import android.widget.TextView;
-import android.widget.Toast;
+import android.widget.Spinner;
+
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 
 public class MainActivity extends FragmentActivity {
@@ -20,8 +22,8 @@ public class MainActivity extends FragmentActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-       final EditText datePicker = (EditText) findViewById(R.id.editText_date);
-       datePicker.setOnClickListener(new View.OnClickListener() {
+        final EditText datePicker = (EditText) findViewById(R.id.editText_date);
+        datePicker.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
@@ -44,7 +46,7 @@ public class MainActivity extends FragmentActivity {
         return true;
     }
 
-    public void addToStock(View view){
+    public void addToStock(View view) {
         DBHelper dbHelper = new DBHelper(this);
 
         addStockInfo(dbHelper);
@@ -53,14 +55,40 @@ public class MainActivity extends FragmentActivity {
 
     private void addStockTransaction(DBHelper dbHelper) {
         int stockId = Integer.parseInt(((EditText) findViewById(R.id.editText_stockId)).getText().toString());
-//        findViewById(R.id.editText_date)
+        Date date = getDate();
+        float price = Float.parseFloat(((EditText) findViewById(R.id.editText_price)).getText().toString());
+        int quantity = Integer.parseInt(((EditText) findViewById(R.id.editText_quantity)).getText().toString());
+        float upperThreshold = Float.parseFloat(((EditText)findViewById(R.id.editText_upperLimit)).getText().toString());
+        float lowerThreshold = Float.parseFloat(((EditText)findViewById(R.id.editText_lowerLimit)).getText().toString());
+        boolean status = ((CheckBox)findViewById(R.id.checkBox_status)).isChecked();
+        TransactionType transactionType = getTransactionType();
+        new StockTransaction(stockId, date, price, quantity, upperThreshold, lowerThreshold, status, transactionType).insert(dbHelper);
+    }
 
+    private Date getDate() {
+        EditText dateText = (EditText) findViewById(R.id.editText_date);
+        DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+        Date date = null;
+        try {
+            date = dateFormat.parse(dateText.getText().toString());
+        }
+        catch(ParseException exception) {
+            Log.v("DEBUG", exception.toString());
+        }
+        return date;
+    }
+
+    private TransactionType getTransactionType() {
+        Spinner spinner = (Spinner) findViewById(R.id.spinner_TransactionType);
+        String selectedItem = spinner.getSelectedItem().toString();
+        TransactionType transactionType = TransactionType.valueOf(selectedItem);
+        return transactionType;
     }
 
     private void addStockInfo(DBHelper dbHelper) {
-        String stockName = ((EditText)findViewById(R.id.editText_stockName)).getText().toString();
+        String stockName = ((EditText) findViewById(R.id.editText_stockName)).getText().toString();
         int stockId = Integer.parseInt(((EditText) findViewById(R.id.editText_stockId)).getText().toString());
-        new StockInfo(stockId,stockName).insert(dbHelper);
+        new StockInfo(stockId, stockName).insert(dbHelper);
     }
 
     @Override
@@ -77,4 +105,5 @@ public class MainActivity extends FragmentActivity {
 
         return super.onOptionsItemSelected(item);
     }
+
 }

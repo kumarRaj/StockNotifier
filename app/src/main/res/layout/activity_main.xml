@@ -157,9 +157,8 @@
         android:id="@+id/save"
         android:onClick="addToStock"
         android:nestedScrollingEnabled="false"
-        android:layout_below="@+id/editText_lowerLimit"
-        android:layout_toRightOf="@+id/text_Upper"
-        android:layout_toEndOf="@+id/text_Upper" />
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true" />
 
     <EditText
         android:layout_width="wrap_content"
@@ -173,5 +172,26 @@
         android:layout_alignParentEnd="true"
         android:focusable="false"
         android:focusableInTouchMode="false" />
+
+    <CheckBox
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Complete"
+        android:id="@+id/checkBox_status"
+        android:layout_marginTop="44dp"
+        android:layout_below="@+id/editText_lowerLimit"
+        android:layout_alignLeft="@+id/editText_lowerLimit"
+        android:layout_alignStart="@+id/editText_lowerLimit" />
+
+    <Spinner
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/spinner_TransactionType"
+        android:layout_alignBottom="@+id/checkBox_status"
+        android:layout_toRightOf="@+id/price"
+        android:layout_alignTop="@+id/checkBox_status"
+        android:layout_toLeftOf="@+id/checkBox_status"
+        android:layout_toStartOf="@+id/checkBox_status"
+        android:entries="@array/spinner_items" />
 
 </RelativeLayout>
