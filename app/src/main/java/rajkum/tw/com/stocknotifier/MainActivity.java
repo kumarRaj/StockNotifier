@@ -62,7 +62,8 @@ public class MainActivity extends FragmentActivity {
         float lowerThreshold = Float.parseFloat(((EditText)findViewById(R.id.editText_lowerLimit)).getText().toString());
         boolean status = ((CheckBox)findViewById(R.id.checkBox_status)).isChecked();
         TransactionType transactionType = getTransactionType();
-        new StockTransaction(stockId, date, price, quantity, upperThreshold, lowerThreshold, status, transactionType).insert(dbHelper);
+
+        dbHelper.insertStockTransaction(new StockTransaction(stockId, date, price, quantity, upperThreshold, lowerThreshold, status, transactionType));
     }
 
     private Date getDate() {
@@ -81,14 +82,13 @@ public class MainActivity extends FragmentActivity {
     private TransactionType getTransactionType() {
         Spinner spinner = (Spinner) findViewById(R.id.spinner_TransactionType);
         String selectedItem = spinner.getSelectedItem().toString();
-        TransactionType transactionType = TransactionType.valueOf(selectedItem);
-        return transactionType;
+        return TransactionType.valueOf(selectedItem);
     }
 
     private void addStockInfo(DBHelper dbHelper) {
         String stockName = ((EditText) findViewById(R.id.editText_stockName)).getText().toString();
         int stockId = Integer.parseInt(((EditText) findViewById(R.id.editText_stockId)).getText().toString());
-        new StockInfo(stockId, stockName).insert(dbHelper);
+        dbHelper.insertIntoStockInfo(new StockInfo(stockId, stockName));
     }
 
     @Override

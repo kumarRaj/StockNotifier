@@ -24,12 +24,12 @@ public class StockInfo {
         return "DROP TABLE StockInfo;";
     }
 
-    public void insert(DBHelper dbHelper){
-        ContentValues values = new ContentValues();
-        values.put("stockId",stockId);
-        values.put("stockName",stockName);
 
-        SQLiteDatabase db = dbHelper.getReadableDatabase();
-        db.insert("StockInfo",null,values);
+    public int getStockId() {
+        return stockId;
+    }
+
+    public String getStockName() {
+        return stockName;
     }
 }

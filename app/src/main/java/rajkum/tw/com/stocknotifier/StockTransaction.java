@@ -34,12 +34,12 @@ public class StockTransaction {
         return "DROP TABLE StockTransaction;";
     }
 
-    public int getTransaction(DBHelper dbHelper){
-        SQLiteDatabase db = dbHelper.getReadableDatabase();
-        String selectQuery = "select last_insert_rowid() from StockTransaction";
-        Cursor cursor = db.rawQuery(selectQuery, null);
-        return cursor.getInt(0);
-    }
+//    public int getTransaction(DBHelper dbHelper){
+//        SQLiteDatabase db = dbHelper.getReadableDatabase();
+//        String selectQuery = "select last_insert_rowid() from StockTransaction";
+//        Cursor cursor = db.rawQuery(selectQuery, null);
+//        return cursor.getInt(0);
+//    }
 
     public StockTransaction(int stockId, Date purchaseDate, float price, int quantity, float upperThreshold, float lowerThreshold, boolean status, TransactionType type) {
         this.stockId = stockId;
@@ -52,19 +52,36 @@ public class StockTransaction {
         this.type = type;
     }
 
-    public void insert(DBHelper dbHelper){
-        ContentValues values = new ContentValues();
-        values.put("stockId",stockId);
-        values.put("purchaseDate",purchaseDate.getTime());
-        values.put("price",price);
-        values.put("quantity",quantity);
-        values.put("upperThreshold",upperThreshold);
-        values.put("lowerThreshold",lowerThreshold);
-        values.put("status",status);
-        values.put("type",type.ordinal());
 
-        SQLiteDatabase db = dbHelper.getReadableDatabase();
-        long status = db.insert("StockTransaction",null,values);
-        Log.v("DEBUG", "db.insert returned:" + String.valueOf(status));
+    public int getType() {
+        return type.ordinal();
+    }
+
+    public boolean getStatus() {
+        return status;
+    }
+
+    public float getLowerThreshold() {
+        return lowerThreshold;
+    }
+
+    public float getUpperThreshold() {
+        return upperThreshold;
+    }
+
+    public int getQuantity() {
+        return quantity;
+    }
+
+    public float getPrice() {
+        return price;
+    }
+
+    public long getPurchaseDate() {
+        return purchaseDate.getTime();
+    }
+
+    public int getStockId() {
+        return stockId;
     }
 }
