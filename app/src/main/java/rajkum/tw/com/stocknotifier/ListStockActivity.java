@@ -11,6 +11,8 @@ import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
 
+import java.util.List;
+
 
 public class ListStockActivity extends ActionBarActivity {
 
@@ -19,18 +21,21 @@ public class ListStockActivity extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list_stock);
 
-        TableLayout tableLayout = (TableLayout) findViewById(R.id.listStocks);
-        String stockData[][] = {{"Tata","100","up"},{"Raja","90","down"},{"Sharan","900","upp"}};
+        List outstandingStocks = new DBHelper(this).getAllOutstandingStockInfo();
 
-        for(String[] stock : stockData){
+        TableLayout tableLayout = (TableLayout) findViewById(R.id.listStocks);
+        for (Object outstandingStock : outstandingStocks) {
+
+            List stock = (List) outstandingStock;
+
             TableRow row = new TableRow(this);
-            row.setId(Integer.parseInt(stock[1]));
+            row.setId((Integer)(stock.get(0)));
 
 
             TextView name = new TextView(this);
-            name.setText(stock[0]);
+            name.setText((String) stock.get(1));
             TextView price = new TextView(this);
-            price.setText(stock[1]);
+            price.setText(String.valueOf(stock.get(2)));
 
             row.addView(name);
             row.addView(price);
@@ -43,10 +48,6 @@ public class ListStockActivity extends ActionBarActivity {
                     TableLayout.LayoutParams.FILL_PARENT,
                     TableLayout.LayoutParams.WRAP_CONTENT));
         }
-
-
-
-
     }
 
 

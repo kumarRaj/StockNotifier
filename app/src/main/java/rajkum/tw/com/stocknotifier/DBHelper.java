@@ -2,9 +2,13 @@ package rajkum.tw.com.stocknotifier;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
+
+import java.util.LinkedList;
+import java.util.List;
 
 /**
  * Created by rajkum on 2/2/15.
@@ -59,5 +63,24 @@ public class DBHelper extends SQLiteOpenHelper {
 
         long status = db.insert("StockTransaction",null,values);
         Log.v("DEBUG", "db.insertIntoStockInfo returned:" + String.valueOf(status));
+    }
+
+    public List getAllOutstandingStockInfo(){
+        String selectQuery = "select StockInfo.stockId,StockInfo.stockName,StockTransaction.price from StockInfo,StockTransaction where StockInfo.stockId = StockTransaction.stockId";
+        Cursor c = db.rawQuery(selectQuery,null);
+        List list = new LinkedList();
+        while (c.moveToNext()) {
+            int id = c.getInt(c.getColumnIndex("stockId"));
+            String name = c.getString(c.getColumnIndex("stockName"));
+            float price = c.getFloat(c.getColumnIndex("price"));
+
+            List s = new LinkedList();
+            s.add(id);
+            s.add(name);
+            s.add(price);
+            list.add(s);
+        }
+        c.close();
+        return list;
     }
 }
